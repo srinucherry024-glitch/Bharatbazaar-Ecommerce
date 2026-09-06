@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Electronics Admin | BharatBazaar</title>
+
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+rel="stylesheet"
+>
+
+<style>
+
+:root{
+--primary:#2563eb;
+--primary-dark:#174bb8;
+--bg:#f5f7fb;
+--white:#fff;
+--line:#e5e8ef;
+--ink:#161a23;
+--muted:#777d8a;
+}
+
+*{box-sizing:border-box}
+
+body{
+margin:0;
+background:var(--bg);
+color:var(--ink);
+font-family:Inter,Segoe UI,Arial,sans-serif;
+}
+
+.admin-shell{display:flex;min-height:100vh}
+
+.sidebar{
+width:245px;
+background:#111827;
+color:#fff;
+position:fixed;
+inset:0 auto 0 0;
+padding:22px 14px;
+z-index:20;
+}
+
+.side-brand{
+display:flex;
+align-items:center;
+gap:10px;
+padding:4px 10px 25px;
+border-bottom:1px solid rgba(255,255,255,.1);
+margin-bottom:20px;
+}
+
+.side-logo{
+width:40px;
+height:40px;
+border-radius:12px;
+background:#2563eb;
+display:grid;
+place-items:center;
+}
+
+.side-brand strong{font-size:15px}
+.side-brand small{
+display:block;
+color:#9299a8;
+font-size:9px;
+}
+
+.side-section{
+color:#737b8c;
+text-transform:uppercase;
+font-size:9px;
+font-weight:800;
+letter-spacing:1px;
+padding:0 11px;
+margin:18px 0 7px;
+}
+
+.side-link{
+width:100%;
+border:0;
+background:transparent;
+color:#aeb4c1;
+display:flex;
+align-items:center;
+gap:10px;
+padding:11px;
+border-radius:9px;
+margin-bottom:3px;
+font-size:12px;
+font-weight:700;
+text-align:left;
+}
+
+.side-link:hover,
+.side-link.active{
+background:rgba(37,99,235,.2);
+color:#fff;
+}
+
+.side-link i{
+width:20px;
+text-align:center;
+}
+
+.logout-link{
+position:absolute;
+bottom:20px;
+left:14px;
+right:14px;
+color:#ff9ca4;
+}
+
+.main{
+margin-left:245px;
+width:calc(100% - 245px);
+}
+
+.topbar{
+height:75px;
+background:#fff;
+border-bottom:1px solid var(--line);
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 30px;
+position:sticky;
+top:0;
+z-index:10;
+}
+
+.page-title{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.department-icon{
+width:43px;
+height:43px;
+border-radius:13px;
+background:#eaf2ff;
+color:#2563eb;
+display:grid;
+place-items:center;
+font-size:21px;
+}
+
+.page-title h1{
+font-size:18px;
+font-weight:900;
+margin:0;
+}
+
+.page-title p{
+margin:2px 0 0;
+color:var(--muted);
+font-size:10px;
+}
+
+.admin-user{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.admin-user strong{
+display:block;
+font-size:11px;
+}
+
+.admin-user small{
+color:#888;
+font-size:9px;
+}
+
+.admin-avatar{
+width:35px;
+height:35px;
+border-radius:50%;
+background:#2563eb;
+color:#fff;
+display:grid;
+place-items:center;
+font-size:13px;
+font-weight:900;
+}
+
+.content{padding:28px}
+
+.welcome{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:22px;
+}
+
+.welcome h2{
+font-size:24px;
+font-weight:900;
+margin:0;
+}
+
+.welcome p{
+color:#888;
+font-size:12px;
+margin:5px 0 0;
+}
+
+.add-btn{
+border:0;
+background:#2563eb;
+color:#fff;
+border-radius:9px;
+padding:10px 15px;
+font-size:11px;
+font-weight:800;
+}
+
+.metrics-grid{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:13px;
+margin-bottom:25px;
+}
+
+.metric-card{
+background:#fff;
+border:1px solid var(--line);
+border-radius:13px;
+padding:15px;
+display:flex;
+align-items:center;
+gap:11px;
+}
+
+.metric-icon{
+width:39px;
+height:39px;
+border-radius:10px;
+display:grid;
+place-items:center;
+}
+
+.metric-icon.purple{background:#eef2ff;color:#4f46e5}
+.metric-icon.blue{background:#eaf2ff;color:#2563eb}
+.metric-icon.cyan{background:#e9fbff;color:#0891b2}
+.metric-icon.gray{background:#f2f2f5;color:#666}
+.metric-icon.indigo{background:#eef0ff;color:#4f46e5}
+.metric-icon.orange{background:#fff5e4;color:#d97706}
+.metric-icon.green{background:#eaf8f0;color:#16834b}
+.metric-icon.red{background:#fff0f1;color:#dc3545}
+
+.metric-label{
+color:#888;
+font-size:9px;
+font-weight:700;
+}
+
+.metric-value{
+font-size:18px;
+font-weight:900;
+margin-top:2px;
+}
+
+.dashboard-section{
+background:#fff;
+border:1px solid var(--line);
+border-radius:15px;
+padding:18px;
+margin-bottom:20px;
+}
+
+.section-title{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+}
+
+.section-title h3{
+margin:0;
+font-size:15px;
+font-weight:900;
+}
+
+.section-title span{
+color:#888;
+font-size:10px;
+}
+
+.table-scroll{overflow-x:auto}
+
+.admin-table{
+width:100%;
+border-collapse:collapse;
+min-width:800px;
+}
+
+.admin-table th{
+text-align:left;
+color:#999;
+font-size:9px;
+text-transform:uppercase;
+padding:11px 9px;
+border-bottom:1px solid var(--line);
+}
+
+.admin-table td{
+padding:11px 9px;
+border-bottom:1px solid #f0f0f3;
+font-size:11px;
+}
+
+.table-product{
+display:flex;
+align-items:center;
+gap:9px;
+min-width:220px;
+}
+
+.table-product img{
+width:44px;
+height:44px;
+object-fit:cover;
+border-radius:8px;
+}
+
+.table-product strong{
+display:block;
+font-size:11px;
+max-width:190px;
+}
+
+.table-product small{
+color:#999;
+font-size:9px;
+}
+
+.stock-badge{
+background:#eef8f2;
+color:#16834b;
+padding:4px 7px;
+border-radius:5px;
+font-size:10px;
+font-weight:800;
+}
+
+.table-actions{
+display:flex;
+gap:5px;
+}
+
+.icon-action{
+width:30px;
+height:30px;
+border-radius:7px;
+border:1px solid #ddd;
+background:#fff;
+}
+
+.icon-action.edit{color:#2563eb}
+.icon-action.delete{color:#dc3545}
+
+.admin-order-card{
+border:1px solid #ededf2;
+border-radius:12px;
+padding:11px;
+display:grid;
+grid-template-columns:65px 1fr auto auto;
+align-items:center;
+gap:13px;
+margin-bottom:9px;
+}
+
+.admin-order-image img{
+width:65px;
+height:65px;
+border-radius:9px;
+object-fit:cover;
+}
+
+.admin-order-title{
+font-size:12px;
+font-weight:900;
+}
+
+.admin-order-meta{
+color:#999;
+font-size:9px;
+margin-top:4px;
+}
+
+.admin-status{
+padding:5px 8px;
+border-radius:20px;
+font-size:9px;
+font-weight:900;
+white-space:nowrap;
+}
+
+.admin-status.pending{background:#f1f1f5;color:#666}
+.admin-status.accepted{background:#eef5ff;color:#2563eb}
+.admin-status.shipped{background:#eef0ff;color:#4f46e5}
+.admin-status.out{background:#fff5e4;color:#d97706}
+.admin-status.delivered{background:#eaf8f0;color:#16834b}
+.admin-status.rejected{background:#fff0f1;color:#dc3545}
+
+.admin-order-actions{
+min-width:120px;
+text-align:right;
+}
+
+.admin-btn{
+border:0;
+border-radius:7px;
+padding:7px 10px;
+font-size:9px;
+font-weight:850;
+}
+
+.admin-btn.accept{background:#eaf8f0;color:#16834b}
+.admin-btn.ship{background:#eef0ff;color:#4f46e5}
+.admin-btn.delivery{background:#fff5e4;color:#d97706}
+
+.admin-hint{
+font-size:10px;
+background:#fff5e4;
+color:#9b650b;
+border-radius:7px;
+padding:7px;
+}
+
+.admin-complete{
+color:#16834b;
+font-size:10px;
+font-weight:800;
+}
+
+.rejected-card{
+border:1px solid #f2d9dc;
+background:#fffafa;
+border-radius:12px;
+padding:12px;
+display:flex;
+align-items:center;
+gap:12px;
+margin-bottom:9px;
+}
+
+.rejected-card img{
+width:58px;
+height:58px;
+border-radius:8px;
+object-fit:cover;
+}
+
+.rejected-info{flex:1}
+
+.rejected-info strong{
+display:block;
+font-size:11px;
+}
+
+.rejected-info small{
+display:block;
+color:#999;
+font-size:9px;
+margin-top:3px;
+}
+
+.admin-empty{
+padding:30px;
+text-align:center;
+color:#999;
+font-size:11px;
+}
+
+.admin-modal{
+position:fixed;
+inset:0;
+background:rgba(15,12,25,.6);
+backdrop-filter:blur(4px);
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:100;
+}
+
+.admin-modal.show{display:flex}
+
+.admin-modal-panel{
+width:min(700px,100%);
+max-height:92vh;
+overflow:auto;
+background:#fff;
+border-radius:18px;
+padding:25px;
+position:relative;
+}
+
+.admin-modal-panel h2{
+margin:0 0 20px;
+font-size:20px;
+font-weight:900;
+}
+
+.admin-close{
+position:absolute;
+right:15px;
+top:15px;
+width:32px;
+height:32px;
+border:0;
+border-radius:50%;
+background:#f2f2f5;
+}
+
+.admin-form-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.admin-field{
+margin-bottom:12px;
+}
+
+.admin-field.full{
+grid-column:1/-1;
+}
+
+.admin-field label{
+display:block;
+font-size:10px;
+font-weight:800;
+margin-bottom:5px;
+}
+
+.admin-field input,
+.admin-field select,
+.admin-field textarea{
+width:100%;
+border:1px solid #ddd;
+border-radius:8px;
+padding:9px;
+outline:none;
+font-size:11px;
+}
+
+.admin-field textarea{resize:vertical}
+
+.admin-save{
+width:100%;
+border:0;
+background:#2563eb;
+color:#fff;
+padding:11px;
+border-radius:9px;
+font-size:11px;
+font-weight:900;
+}
+
+.admin-toast-container{
+position:fixed;
+right:20px;
+bottom:20px;
+z-index:500;
+}
+
+.admin-toast{
+background:#19171e;
+color:#fff;
+padding:12px 15px;
+border-radius:9px;
+font-size:10px;
+font-weight:700;
+margin-top:7px;
+min-width:260px;
+}
+
+.admin-toast.error{border-left:4px solid #dc3545}
+.admin-toast.success{border-left:4px solid #20a464}
+
+@media(max-width:1200px){
+.metrics-grid{grid-template-columns:repeat(3,1fr)}
+}
+
+@media(max-width:850px){
+.sidebar{width:70px}
+.side-brand div:last-child,
+.side-section,
+.side-link span{display:none}
+.side-link{justify-content:center}
+.main{
+margin-left:70px;
+width:calc(100% - 70px);
+}
+.metrics-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:650px){
+.content{padding:15px}
+.topbar{padding:0 15px}
+.admin-user div{display:none}
+.welcome{
+align-items:flex-start;
+flex-direction:column;
+gap:10px;
+}
+.admin-order-card{
+grid-template-columns:55px 1fr;
+}
+.admin-order-status,
+.admin-order-actions{
+grid-column:2;
+text-align:left;
+}
+.admin-form-grid{
+grid-template-columns:1fr;
+}
+.admin-field.full{grid-column:auto}
+}
+
+</style>
+
+</head>
+
+
+<body data-department="Electronics">
+
+<div class="admin-shell">
+
+<aside class="sidebar">
+
+<div class="side-brand">
+
+<div class="side-logo">
+<i class="bi bi-bag-heart-fill"></i>
+</div>
+
+<div>
+<strong>BharatBazaar</strong>
+<small>Admin Panel</small>
+</div>
+
+</div>
+
+<div class="side-section">Management</div>
+
+<button class="side-link active" onclick="scrollToSection('dashboard')">
+<i class="bi bi-grid-1x2"></i>
+<span>Dashboard</span>
+</button>
+
+<button class="side-link" onclick="scrollToSection('inventory')">
+<i class="bi bi-box-seam"></i>
+<span>Inventory</span>
+</button>
+
+<button class="side-link" onclick="scrollToSection('orders')">
+<i class="bi bi-receipt"></i>
+<span>Orders</span>
+</button>
+
+<button class="side-link" onclick="scrollToSection('rejected')">
+<i class="bi bi-x-circle"></i>
+<span>Rejected Items</span>
+</button>
+
+<button class="side-link" onclick="openProductEditor()">
+<i class="bi bi-plus-circle"></i>
+<span>Add Product</span>
+</button>
+
+<button class="side-link logout-link" onclick="adminLogout()">
+<i class="bi bi-box-arrow-left"></i>
+<span>Logout</span>
+</button>
+
+</aside>
+
+
+<main class="main">
+
+<header class="topbar">
+
+<div class="page-title">
+
+<div class="department-icon" id="adminDepartmentIcon">
+<i class="bi bi-phone"></i>
+</div>
+
+<div>
+<h1 id="adminDepartmentTitle">Electronics</h1>
+<p id="adminDepartmentSubtitle">Electronics Department Management</p>
+</div>
+
+</div>
+
+<div class="admin-user">
+
+<div>
+<strong>Department Admin</strong>
+<small>Electronics Manager</small>
+</div>
+
+<div class="admin-avatar">E</div>
+
+</div>
+
+</header>
+
+
+<div class="content">
+
+<section id="dashboard">
+
+<div class="welcome">
+
+<div>
+<h2>Dashboard Overview</h2>
+<p>Manage your Electronics department.</p>
+</div>
+
+<button class="add-btn" onclick="openProductEditor()">
+<i class="bi bi-plus-lg"></i>
+Add Product
+</button>
+
+</div>
+
+<div id="metricsGrid" class="metrics-grid"></div>
+
+</section>
+
+
+<section id="inventory" class="dashboard-section">
+
+<div class="section-title">
+<h3>Product Inventory</h3>
+<span>Electronics products</span>
+</div>
+
+<div id="inventoryTable"></div>
+
+</section>
+
+
+<section id="orders" class="dashboard-section">
+
+<div class="section-title">
+<h3>Orders & Product Tracking</h3>
+<span>Individual product status</span>
+</div>
+
+<div id="adminOrders"></div>
+
+</section>
+
+
+<section id="rejected" class="dashboard-section">
+
+<div class="section-title">
+<h3>Rejected Items</h3>
+<span>Customer rejected products</span>
+</div>
+
+<div id="rejectedItems"></div>
+
+</section>
+
+</div>
+
+</main>
+
+</div>
+
+
+<div class="admin-modal" id="productEditorModal">
+
+<div class="admin-modal-panel">
+
+<button class="admin-close" data-admin-close="productEditorModal">
+<i class="bi bi-x-lg"></i>
+</button>
+
+<h2 id="productEditorTitle">Add Product</h2>
+
+<form id="productForm" onsubmit="saveProduct(event)">
+
+<div class="admin-form-grid">
+
+<div class="admin-field full">
+<label>Product Title</label>
+<input id="pTitle" required>
+</div>
+
+<div class="admin-field">
+<label>Category</label>
+<select id="pCategory" required>
+<option value="Electronics">Electronics</option>
+</select>
+</div>
+
+<div class="admin-field">
+<label>Brand</label>
+<input id="pBrand" required>
+</div>
+
+<div class="admin-field">
+<label>Price</label>
+<input id="pPrice" type="number" min="1" required>
+</div>
+
+<div class="admin-field">
+<label>Original Price</label>
+<input id="pOriginalPrice" type="number" min="1" required>
+</div>
+
+<div class="admin-field">
+<label>Rating</label>
+<input id="pRating" type="number" min="0" max="5" step=".1" value="4.2" required>
+</div>
+
+<div class="admin-field">
+<label>Reviews</label>
+<input id="pReviews" type="number" min="0" value="0" required>
+</div>
+
+<div class="admin-field">
+<label>Stock</label>
+<input id="pStock" type="number" min="0" value="20" required>
+</div>
+
+<div class="admin-field">
+<label>Seller</label>
+<input id="pSeller" required>
+</div>
+
+<div class="admin-field full">
+<label>Image URL</label>
+<input id="pImage" required>
+</div>
+
+<div class="admin-field full">
+<label>Description</label>
+<textarea id="pDescription" rows="3" required></textarea>
+</div>
+
+</div>
+
+<button class="admin-save" type="submit">
+Save Product
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+
+<div class="admin-toast-container" id="adminToastContainer"></div>
+
+
+<script src="../js/data.js"></script>
+<script src="../js/admin.js"></script>
+
+<script>
+function scrollToSection(id){
+document.getElementById(id)?.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
+}
+</script>
+
+</body>
+</html>
