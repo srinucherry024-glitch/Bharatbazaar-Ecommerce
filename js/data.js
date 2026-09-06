@@ -14,12 +14,12 @@ const BB_CATEGORIES = [
 
 const IMG = {
     fashion: [
-       "images/rishi.png",
+       "https://chowkhat.com/cdn/shop/files/Untitled_Session0767.jpg?v=1756967605&width=2048",
        "https://rukminim2.flixcart.com/image/480/640/xif0q/ethnic-set/k/q/v/m-roman-silk-tasrika-original-imahy5gm9ukeqzy8.jpeg?q=90",
       "https://jaipuristitch.com/cdn/shop/files/SKYBLUELEHARIYA.png?v=1773155951",
         "https://images.cbazaar.com/images/green-cotton-embroidered-mirror-embossed-simple-kurti-for-women-krsacy7433-u.jpg",
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8enwA36Pfyj3USI6lG7c3RtTaAs1g7Ia7DZcBhvN3OBrbpaRJX2UtPYE&s=10",
-        "images/Rishi2.png",
+        "https://img.magnific.com/free-photo/eyeglasses-wear_1203-2605.jpg?semt=ais_hybrid&w=740&q=80",
         "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=700&q=80",
         "https://images.unsplash.com/photo-1612336307429-8a898d10e223?auto=format&fit=crop&w=700&q=80",
         "https://images.unsplash.com/photo-1585488431146-6e7f3c3c5e99?auto=format&fit=crop&w=700&q=80"
